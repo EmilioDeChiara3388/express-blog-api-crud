@@ -2,38 +2,21 @@ const posts= require("../db.js")
 const fs = require("fs")
 
 const index= (req, res) => {
-    //res.send("Siamo all'Index")
-    
-    //console.log(title);
-    
-    /* posts.forEach(post => {
-        let { title, slug, content, image, tags } = post
-        let markup = `
-        <li> 
-        ${title}
-        <p>${slug}</p>
-        <p>${content}</p>
-        </li>`
-        res.send(markup)
-    }) */
-   for (let i = 0; i < posts.length; i++){
+    let list = "";
+    for (let i = 0; i < posts.length; i++){
     let post = posts[i];
-    //let { title, slug, content, image, tags } = post
     let markup = `
         <ul>
             <li>
-                ${post.title}
-                <p>${post.slug}</p>
+                <h3>${post.title}</h3>
                 <p>${post.content}</p>
                 <p>${post.tags}</p>
             </li>
         </ul>
     `
-    let list;
     list += markup;
-    res.send(list)
-   
 }
+res.send(list)
 }
 
 const show= (req, res) => {
