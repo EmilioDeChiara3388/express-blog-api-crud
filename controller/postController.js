@@ -6,7 +6,7 @@ const index= (req, res) => {
     
     //console.log(title);
     
-    posts.forEach(post => {
+    /* posts.forEach(post => {
         let { title, slug, content, image, tags } = post
         let markup = `
         <li> 
@@ -15,7 +15,25 @@ const index= (req, res) => {
         <p>${content}</p>
         </li>`
         res.send(markup)
-    })
+    }) */
+   for (let i = 0; i < posts.length; i++){
+    let post = posts[i];
+    //let { title, slug, content, image, tags } = post
+    let markup = `
+        <ul>
+            <li>
+                ${post.title}
+                <p>${post.slug}</p>
+                <p>${post.content}</p>
+                <p>${post.tags}</p>
+            </li>
+        </ul>
+    `
+    let list;
+    list += markup;
+    res.send(list)
+   
+}
 }
 
 const show= (req, res) => {
