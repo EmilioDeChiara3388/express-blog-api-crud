@@ -8,4 +8,6 @@ router.get("/:slug", postController.show)
 
 router.post("/", postController.store)
 
+router.put("/:slug", postController.update)
+
 module.exports= router

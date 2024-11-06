@@ -70,15 +70,15 @@ module.exports = [
         ]
     },
     {
-        "title": "Farinata",
-        "slug": "Farinata",
-        "content": "A base di farina di ceci, fritta, sottile, croccante e buonissima!",
+        "title": "Chili",
+        "slug": "chili",
+        "content": "Ricetta rapida e sfiziosa!",
         "image": "farinata.jpeg",
         "tags": [
             "Salato",
-            "Snack",
+            "Etnico",
             "Ricette vegetariane",
-            "Ricette fritte"
+            "Ricette rapide"
         ]
     }
 ]

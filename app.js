@@ -10,5 +10,5 @@ app.listen(PORT, (req, res) => {
     console.log(`Server is running at ${HOST}:${PORT}`);
 })
 
-app.use("/post", postRouter)
+app.use("/posts", postRouter)
 

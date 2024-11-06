@@ -9,6 +9,7 @@ const index= (req, res) => {
         <ul>
             <li>
                 <h3>${post.title}</h3>
+                <img src= "./public/imgs/posts/ciambellone.jpeg">
                 <p>${post.content}</p>
                 <p>${post.tags}</p>
             </li>
@@ -21,7 +22,7 @@ res.send(list)
 
 const show= (req, res) => {
 
-    const post = posts.find(post => post.slug === (req.params.slug))
+    const post = posts.find(post => post.slug.toLowerCase() === (req.params.slug))
     console.log(post);
     if (!post) {
         return res.status(404).json({
@@ -51,9 +52,29 @@ const store = (req, res) => {
     })
 }
 
+const update = (req, res) => {
+    const post = posts.find(post => post.slug.toLowerCase() === req.params.slug)
+    if (!post){
+        return res.status(404).json({
+            errore: `Nessuna ricetta trovata con il nome ${slug}`
+        })
+    }
+    post.title = req.body.title
+        post.slug = req.body.slug
+        post.content = req.body.content
+        post.image = req.body.image
+        post.tags = req.body.tags
+        fs.writeFileSync("./db.js", `module.exports = ${JSON.stringify(posts, null, 4)}`)
+        return res.status(200).json({
+            status: 200,
+            data: posts
+        })
+    }
+
 
 module.exports = {
     index,
     show,
-    store
+    store,
+    update
 }
