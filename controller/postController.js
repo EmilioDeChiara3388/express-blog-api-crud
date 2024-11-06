@@ -36,7 +36,6 @@ const show= (req, res) => {
 }
 
 const store = (req, res) => {
-    //console.log(req.body);
     const post = {
         title: req.body.title,
         slug: req.body.slug,
@@ -71,10 +70,26 @@ const update = (req, res) => {
         })
     }
 
+    const destroy = (req, res) => {
+        const post = posts.find(post => post.slug.toLowerCase() === req.params.slug)
+        if (!post){
+            return res.status(404).json({
+                errore: `Nessuna ricetta trovata con il nome ${slug}`
+            })
+        }
+        const newPosts = posts.filter(post => post.slug !== req.params.slug)
+        fs.writeFileSync("./db.js", `module.exports = ${JSON.stringify(newPosts, null, 4)}`)
+        return res.status(200).json({
+            status: 200,
+            data: newPosts
+        })
+    }
+
 
 module.exports = {
     index,
     show,
     store,
-    update
+    update,
+    destroy
 }

@@ -10,4 +10,6 @@ router.post("/", postController.store)
 
 router.put("/:slug", postController.update)
 
+router.delete("/:slug", postController.destroy)
+
 module.exports= router
