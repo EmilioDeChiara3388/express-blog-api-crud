@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const postRouter = require("./routers/posts.js")
 app.use(express.json())
+app.use(express.static('public'))
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT
