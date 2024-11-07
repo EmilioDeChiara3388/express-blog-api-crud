@@ -14,14 +14,16 @@ app.listen(PORT, (req, res) => {
     console.log(`Server is running at ${HOST}:${PORT}`);
 })
 
-app.use(loggerMiddleware)
 
-app.use("/posts", (req, res, next) => {
+
+/* app.use("/posts", (req, res, next) => {
     throw new Error("You broke everything...")
     
-});
+}); */
 
-app.use("/", postRouter)
+app.use(loggerMiddleware)
+
+app.use("/posts", postRouter)
 
 app.use(notFoundMiddleware)
 

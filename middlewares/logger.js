@@ -3,8 +3,7 @@ const loggerMiddleware = (req, res, next) => {
     console.error(`
         Date: ${now}
         Method: ${req.method}
-        URL: ${req.url}
-        `);
+        URL: ${req.url}`);
     next()
 }
 
