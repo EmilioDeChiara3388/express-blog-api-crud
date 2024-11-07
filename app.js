@@ -1,7 +1,7 @@
 const express = require("express")
 const app = express()
 const postRouter = require("./routers/posts.js")
-const postHome = require("./routers/home.js")
+//const postHome = require("./routers/home.js")
 const notFoundMiddleware = require("./middlewares/notFound.js")
 const loggerMiddleware = require("./middlewares/logger.js")
 const errorMiddleware = require("./middlewares/error.js")
@@ -24,9 +24,11 @@ app.listen(PORT, (req, res) => {
 
 app.use(loggerMiddleware)
 
-
 app.use("/posts", postRouter)
-app.use("/", postHome)
+app.use("/", (req, res) => {
+    res.send("Per l'elenco dei post, aggiungi '/posts' all'url qui sopra!")
+})
+
 
 app.use(notFoundMiddleware)
 
