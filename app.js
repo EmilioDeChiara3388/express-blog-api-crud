@@ -3,6 +3,7 @@ const app = express()
 const postRouter = require("./routers/posts.js")
 const notFoundMiddleware = require("./middlewares/notFound.js")
 const loggerMiddleware = require("./middlewares/logger.js")
+const errorMiddleware = require("./middlewares/error.js")
 app.use(express.json())
 app.use(express.static('public'))
 
@@ -20,16 +21,9 @@ app.use("/posts", (req, res, next) => {
     
 });
 
-app.use("/posts", postRouter)
+app.use("/", postRouter)
 
 app.use(notFoundMiddleware)
 
-app.use((err, req, res, next) => {
-    console.log("Error:", err.message);
-    console.error(err.stack);
-    res.status(500).send({
-        message: "Something went wrong",
-        error: err.message
-    })  
-})
+app.use(errorMiddleware)
 
