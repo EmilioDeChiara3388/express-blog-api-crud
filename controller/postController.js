@@ -1,11 +1,11 @@
-const posts= require("../db.js")
+const posts = require("../db.js")
 const fs = require("fs")
 
-const index= (req, res) => {
+const index = (req, res) => {
     let list = "";
-    for (let i = 0; i < posts.length; i++){
-    let post = posts[i];
-    let markup = `
+    for (let i = 0; i < posts.length; i++) {
+        let post = posts[i];
+        let markup = `
         <ul>
             <li>
                 <h3>${post.title}</h3>
@@ -15,12 +15,12 @@ const index= (req, res) => {
             </li>
         </ul>
     `
-    list += markup;
-}
-res.send(list)
+        list += markup;
+    }
+    res.send(list)
 }
 
-const show= (req, res) => {
+const show = (req, res) => {
 
     const post = posts.find(post => post.slug.toLowerCase() === (req.params.slug))
     console.log(post);
@@ -53,37 +53,37 @@ const store = (req, res) => {
 
 const update = (req, res) => {
     const post = posts.find(post => post.slug.toLowerCase() === req.params.slug)
-    if (!post){
+    if (!post) {
         return res.status(404).json({
             errore: `Nessuna ricetta trovata con il nome ${slug}`
         })
     }
     post.title = req.body.title
-        post.slug = req.body.slug
-        post.content = req.body.content
-        post.image = req.body.image
-        post.tags = req.body.tags
-        fs.writeFileSync("./db.js", `module.exports = ${JSON.stringify(posts, null, 4)}`)
-        return res.status(200).json({
-            status: 200,
-            data: posts
-        })
-    }
+    post.slug = req.body.slug
+    post.content = req.body.content
+    post.image = req.body.image
+    post.tags = req.body.tags
+    fs.writeFileSync("./db.js", `module.exports = ${JSON.stringify(posts, null, 4)}`)
+    return res.status(200).json({
+        status: 200,
+        data: posts
+    })
+}
 
-    const destroy = (req, res) => {
-        const post = posts.find(post => post.slug.toLowerCase() === req.params.slug)
-        if (!post){
-            return res.status(404).json({
-                errore: `Nessuna ricetta trovata con il nome ${slug}`
-            })
-        }
-        const newPosts = posts.filter(post => post.slug !== req.params.slug)
-        fs.writeFileSync("./db.js", `module.exports = ${JSON.stringify(newPosts, null, 4)}`)
-        return res.status(200).json({
-            status: 200,
-            data: newPosts
+const destroy = (req, res) => {
+    const post = posts.find(post => post.slug.toLowerCase() === req.params.slug)
+    if (!post) {
+        return res.status(404).json({
+            errore: `Nessuna ricetta trovata con il nome ${slug}`
         })
     }
+    const newPosts = posts.filter(post => post.slug !== req.params.slug)
+    fs.writeFileSync("./db.js", `module.exports = ${JSON.stringify(newPosts, null, 4)}`)
+    return res.status(200).json({
+        status: 200,
+        data: newPosts
+    })
+}
 
 
 module.exports = {

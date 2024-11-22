@@ -37,7 +37,7 @@ app.use(loggerMiddleware)
 
 app.use("/posts", postRouter)
 app.use("/", (req, res) => {
-    res.send("Per l'elenco dei post, aggiungi '/posts' all'url qui sopra!")
+    res.send("Ciao!")
 })
 
 
